@@ -11,3 +11,6 @@ Deep Learning algorithms, concepts and applications developed in python using Te
 (keywords: multiclass image classification, normalization, random mini batches, adam optimization, l2 regularization)  
    * The dataset has been taken from deeplearning.ai [course 2](https://www.coursera.org/learn/deep-neural-network/home/welcome) and consists of colour images of size 64 x 64 pixels  
    * The classification was implemented using a 3 layer neural network with 12288 input units, 40 units in the first hidden layer, 20 in the second hidden layer, 6 units in the output layer.  
+
+* [Fashion MNIST](http://nbviewer.jupyter.org/github/azfarkhoja305/Deep-Learning-using-Tensorflow-Core/blob/master/Fashion%20MNIST/Fashion%20MNIST.ipynb)
+   * Under Construction   
