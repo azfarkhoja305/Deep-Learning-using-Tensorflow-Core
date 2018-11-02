@@ -2,32 +2,6 @@ import numpy as np
 import tensorflow as tf
 import math
 
-def random_mini_batches(X,Y,batch_size):
-    
-    mini_batches = []
-    m = X.shape[1]
-    # Shuffle
-    permute = np.random.permutation(m)
-    X = X[:,permute]
-    Y = Y[:,permute]
-    
-    # Partition
-    complete_batches = math.floor(m/batch_size)
-    for k in range(complete_batches):
-        batch_X = X[:,k*batch_size:(k+1)*batch_size]
-        batch_Y = Y[:,k*batch_size:(k+1)*batch_size]
-        batch = (batch_X,batch_Y)
-        mini_batches.append(batch)
-        
-    # Handling the end case
-    if m % batch_size != 0:
-        batch_X = X[:,(k+1)*batch_size:]
-        batch_Y = Y[:,(k+1)*batch_size:]
-        batch = (batch_X,batch_Y)
-        mini_batches.append(batch)
-        
-    return mini_batches
-
 def one_hot_matrix(y,C):
     num_class = np.unique(y).size
     assert(num_class == C)
@@ -64,6 +38,8 @@ def forward_propagation(X, params):
     ZL = tf.matmul(params['W'+str(L)],A) + params['b'+str(L)]
     
     return ZL
+
+
 # Function to compute the cost (Cross Entropy Loss)
 # Takes in the output of the last linear layer from forward_propagation
 # Performs the Softmax computation and then calculates the cost
@@ -77,5 +53,13 @@ def costFunction(ZL,Y,reg_term):
     
     return cost
     
+def horizontal_flip(X):
+    
+    flip_X = X.T.reshape(-1,28,28)
+    flip_X = flip_X[:,:,::-1]
+    flip_X = flip_X.reshape(-1,28*28)
+    return flip_X.T
 
-
+def lr_steps(start,scale,step):
+    lr = start * scale**tf.to_float(step)
+    return lr
